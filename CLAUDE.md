@@ -7,11 +7,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 **Inkwell** is a Flask-based blog application. The skeleton (home and post pages) is complete, and the database layer with SQLite has been implemented. Posts, users, likes, and saved posts are persisted in the database.
 
 ## Development Roadmap
-The project is built in 11 steps. Current status:
+The project is built in steps. Current status:
 - [x] Skeleton — home page and post page
 - [x] Step 1: Database setup (raw SQLite, no SQLAlchemy)
 - [x] Step 2: Login system (admin only)
-- [ ] Step 3: Admin panel
+- [ ] Step 3a: Admin dashboard
+- [ ] Step 3b: Create post (plain textarea)
+- [ ] Step 3c: Rich text editor (Quill or TinyMCE)
+- [ ] Step 3d: Image uploads
+- [ ] Step 3e: Edit and delete post
+- [ ] Step 3f: Publish/unpublish toggle
 - [ ] Step 4: Blog home page (from DB)
 - [ ] Step 5: View blog page (from DB)
 - [ ] Step 6: User registration
