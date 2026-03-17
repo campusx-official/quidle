@@ -1,4 +1,7 @@
 {% extends "base.html" %}
+{% block head %}
+<link href="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.snow.css" rel="stylesheet">
+{% endblock %}
 {% block content %}
 <div class="write-container">
     {% if error %}
@@ -34,10 +37,37 @@
                   rows="2"
                   placeholder="A short excerpt or subtitle…">{{ form.get('excerpt', '') }}</textarea>
 
-        <label class="write-content-label" for="content">Content</label>
-        <textarea id="content"
-                  name="content"
-                  class="write-content-input">{{ form.get('content', '') }}</textarea>
+        <label class="write-content-label" for="quill-editor">Content</label>
+        <div id="quill-editor" class="write-content-input"></div>
+        <input type="hidden" name="content" id="content-hidden">
     </form>
 </div>
+{% endblock %}
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.js"></script>
+<script>
+  const quill = new Quill('#quill-editor', {
+    theme: 'snow',
+    modules: {
+      toolbar: [
+        [{ header: [1, 2, false] }],
+        ['bold', 'italic', 'underline'],
+        [{ list: 'ordered' }, { list: 'bullet' }],
+        ['blockquote', 'link'],
+        ['clean']
+      ]
+    }
+  });
+
+  {% if form.get('content') %}
+  quill.root.innerHTML = {{ form.get('content') | tojson }};
+  {% endif %}
+
+  const postForm = document.querySelector('form');
+  postForm.addEventListener('submit', function () {
+    const html = quill.root.innerHTML;
+    const text = quill.getText().trim();
+    document.getElementById('content-hidden').value = text ? html : '';
+  });
+</script>
 {% endblock %}

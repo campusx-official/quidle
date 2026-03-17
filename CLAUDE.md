@@ -13,10 +13,8 @@ The project is built in steps. Current status:
 - [x] Step 2: Login system (admin only)
 - [x] Step 3a: Admin dashboard
 - [x] Step 3b: Create post (plain textarea)
-- [ ] Step 3c: Rich text editor (Quill or TinyMCE)
-- [ ] Step 3d: Image uploads
-- [ ] Step 3e: Edit and delete post
-- [ ] Step 3f: Publish/unpublish toggle
+- [x] Step 3c: Rich text editor (Quill or TinyMCE)
+- [ ] Step 3d: Edit and delete post
 - [ ] Step 4: Blog home page (from DB)
 - [ ] Step 5: View blog page (from DB)
 - [ ] Step 6: User registration
