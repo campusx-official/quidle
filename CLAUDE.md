@@ -11,7 +11,7 @@ The project is built in steps. Current status:
 - [x] Skeleton — home page and post page
 - [x] Step 1: Database setup (raw SQLite, no SQLAlchemy)
 - [x] Step 2: Login system (admin only)
-- [ ] Step 3a: Admin dashboard
+- [x] Step 3a: Admin dashboard
 - [ ] Step 3b: Create post (plain textarea)
 - [ ] Step 3c: Rich text editor (Quill or TinyMCE)
 - [ ] Step 3d: Image uploads

@@ -52,7 +52,7 @@ def login():
             session["user_id"] = user["id"]
             session["username"] = user["username"]
             session["is_admin"] = user["is_admin"]
-            return redirect(url_for("home"))
+            return redirect(url_for("admin_dashboard"))
         return render_template("login.html", error="Invalid credentials or not an admin.")
     return render_template("login.html")
 
@@ -60,6 +60,27 @@ def login():
 def logout():
     session.clear()
     return redirect(url_for("home"))
+
+@app.route("/admin")
+@admin_required
+def admin_dashboard():
+    db = get_db()
+    posts = db.execute(
+        """SELECT posts.*, users.username as author
+           FROM posts
+           JOIN users ON posts.author_id = users.id
+           ORDER BY posts.created_at DESC""",
+    ).fetchall()
+    total = len(posts)
+    published = sum(1 for p in posts if p["status"] == "published")
+    drafts = total - published
+    return render_template(
+        "admin/dashboard.html",
+        posts=posts,
+        total=total,
+        published=published,
+        drafts=drafts,
+    )
 
 if __name__ == "__main__":
     app.run(debug=True)
