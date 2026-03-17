@@ -111,12 +111,12 @@ No new dependencies — sqlite3 is part of Python's standard
 library and werkzeug is already installed
 
 ## Definition of done
-- [ ] All 4 tables exist in inkwell.db after running the app
-- [ ] Admin user exists with a hashed password
-- [ ] 5 dummy posts exist with status = published
-- [ ] Home page loads posts from DB not from hardcoded list
-- [ ] Post page loads individual post from DB by slug
-- [ ] 404 returned for unknown slugs
-- [ ] App runs cleanly with no errors on startup
-- [ ] foreign_keys PRAGMA is enabled on every connection
-- [ ] No raw string formatting in any SQL query
+- [x] All 4 tables exist in inkwell.db after running the app
+- [x] Admin user exists with a hashed password
+- [x] 5 dummy posts exist with status = published
+- [x] Home page loads posts from DB not from hardcoded list
+- [x] Post page loads individual post from DB by slug
+- [x] 404 returned for unknown slugs
+- [x] App runs cleanly with no errors on startup
+- [x] foreign_keys PRAGMA is enabled on every connection
+- [x] No raw string formatting in any SQL query
