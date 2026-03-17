@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="write-container">
+    {% if error %}
+        <p class="auth-error write-error">{{ error }}</p>
+    {% endif %}
+    <form method="POST" action="/admin/posts/new">
+        <div class="write-meta-bar">
+            <a href="{{ url_for('admin_dashboard') }}" class="back-link">← Dashboard</a>
+            <div class="write-actions">
+                <select name="status" class="write-status-select">
+                    <option value="draft"
+                        {% if form.get('status', 'draft') == 'draft' %}selected{% endif %}>
+                        Draft
+                    </option>
+                    <option value="published"
+                        {% if form.get('status') == 'published' %}selected{% endif %}>
+                        Published
+                    </option>
+                </select>
+                <button type="submit" class="btn-save">Save Post</button>
+            </div>
+        </div>
+
+        <input  type="text"
+                name="title"
+                class="write-title-input"
+                placeholder="Post title…"
+                value="{{ form.get('title', '') }}"
+                autofocus>
+
+        <textarea name="excerpt"
+                  class="write-excerpt-input"
+                  rows="2"
+                  placeholder="A short excerpt or subtitle…">{{ form.get('excerpt', '') }}</textarea>
+
+        <label class="write-content-label" for="content">Content</label>
+        <textarea id="content"
+                  name="content"
+                  class="write-content-input">{{ form.get('content', '') }}</textarea>
+    </form>
+</div>
+{% endblock %}

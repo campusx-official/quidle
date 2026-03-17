@@ -1,3 +1,4 @@
+import re
 from functools import wraps
 from flask import Flask, render_template, request, redirect, url_for, session
 from werkzeug.security import check_password_hash
@@ -81,6 +82,45 @@ def admin_dashboard():
         published=published,
         drafts=drafts,
     )
+
+@app.route("/admin/posts/new", methods=["GET", "POST"])
+@admin_required
+def admin_create_post():
+    if request.method == "POST":
+        title   = request.form.get("title", "").strip()
+        excerpt = request.form.get("excerpt", "").strip()
+        content = request.form.get("content", "").strip()
+        status  = request.form.get("status", "draft")
+
+        if not title:
+            return render_template("admin/create_post.html",
+                                   error="Title is required.", form=request.form)
+        if not content:
+            return render_template("admin/create_post.html",
+                                   error="Content is required.", form=request.form)
+
+        if status not in ("draft", "published"):
+            status = "draft"
+
+        slug_base = re.sub(r"[^a-z0-9]+", "-", title.lower()).strip("-")[:80]
+        slug = slug_base
+        db = get_db()
+        counter = 2
+        while db.execute("SELECT id FROM posts WHERE slug = ?", (slug,)).fetchone():
+            slug = f"{slug_base}-{counter}"
+            counter += 1
+
+        db.execute(
+            "INSERT INTO posts (title, slug, content, excerpt, status, author_id)"
+            " VALUES (?, ?, ?, ?, ?, ?)",
+            (title, slug, content, excerpt, status, session["user_id"]),
+        )
+        db.commit()
+        db.close()
+        return redirect(url_for("admin_dashboard"))
+
+    return render_template("admin/create_post.html", error=None, form={})
+
 
 if __name__ == "__main__":
     app.run(debug=True)
