@@ -1,7 +1,18 @@
-from flask import Flask, render_template
+from functools import wraps
+from flask import Flask, render_template, request, redirect, url_for, session
+from werkzeug.security import check_password_hash
 from database.db import init_db, seed_db, get_db
 
 app = Flask(__name__)
+app.secret_key = "dev-secret-key"
+
+def admin_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        if not session.get("is_admin"):
+            return redirect(url_for("login"))
+        return f(*args, **kwargs)
+    return decorated
 
 with app.app_context():
     init_db()
@@ -27,6 +38,28 @@ def post(slug):
 @app.route("/about")
 def about():
     return render_template("about.html")
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        username = request.form["username"]
+        password = request.form["password"]
+        db = get_db()
+        user = db.execute(
+            "SELECT * FROM users WHERE username = ?", (username,)
+        ).fetchone()
+        if user and check_password_hash(user["password_hash"], password) and user["is_admin"]:
+            session["user_id"] = user["id"]
+            session["username"] = user["username"]
+            session["is_admin"] = user["is_admin"]
+            return redirect(url_for("home"))
+        return render_template("login.html", error="Invalid credentials or not an admin.")
+    return render_template("login.html")
+
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect(url_for("home"))
 
 if __name__ == "__main__":
     app.run(debug=True)
