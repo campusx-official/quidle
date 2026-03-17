@@ -12,7 +12,7 @@ The project is built in steps. Current status:
 - [x] Step 1: Database setup (raw SQLite, no SQLAlchemy)
 - [x] Step 2: Login system (admin only)
 - [x] Step 3a: Admin dashboard
-- [ ] Step 3b: Create post (plain textarea)
+- [x] Step 3b: Create post (plain textarea)
 - [ ] Step 3c: Rich text editor (Quill or TinyMCE)
 - [ ] Step 3d: Image uploads
 - [ ] Step 3e: Edit and delete post
