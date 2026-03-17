@@ -10,7 +10,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 The project is built in 11 steps. Current status:
 - [x] Skeleton — home page and post page
 - [x] Step 1: Database setup (raw SQLite, no SQLAlchemy)
-- [ ] Step 2: Login system (admin only)
+- [x] Step 2: Login system (admin only)
 - [ ] Step 3: Admin panel
 - [ ] Step 4: Blog home page (from DB)
 - [ ] Step 5: View blog page (from DB)
