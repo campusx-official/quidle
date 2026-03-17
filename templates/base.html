@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inkwell</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block head %}{% endblock %}
 </head>
 <body>
     <nav class="navbar">
@@ -27,5 +28,6 @@
     <footer>
         <p>Inkwell &copy; 2024</p>
     </footer>
+    {% block scripts %}{% endblock %}
 </body>
 </html>
