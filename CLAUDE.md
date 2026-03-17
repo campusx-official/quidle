@@ -19,7 +19,7 @@ The project is built in 11 steps. Current status:
 - [ ] Step 8: Search
 - [ ] Step 9: Like button
 - [ ] Step 10: Save for later
-- [ ] Step 11: Share functionality
+- [ ] Step 1: Share functionality
 
 ## Development Commands
 
