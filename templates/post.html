@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<article class="post">
+    <h1>{{ post.title }}</h1>
+    <div class="meta">By {{ post.author }} &middot; {{ post.date }}</div>
+    <div class="post-content">
+        {{ post.content | safe }}
+    </div>
+    <div class="share">
+        <button onclick="navigator.clipboard.writeText(window.location.href)">
+            Copy link
+        </button>
+    </div>
+</article>
+<a href="/" class="back-link">&larr; Back to all posts</a>
+{% endblock %}
